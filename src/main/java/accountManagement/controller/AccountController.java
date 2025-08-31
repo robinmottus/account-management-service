@@ -35,21 +35,13 @@ public class AccountController {
     @PutMapping("/accounts/{id}")
     @Operation(summary = "Update an existing account")
     public ResponseEntity<AccountResponse> updateAccount(@PathVariable final Long id, @Valid @RequestBody AccountUpdateRequest account) {
-        try {
             return new ResponseEntity<>(accountService.updateAccount(id, account), HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/accounts/{id}")
     @Operation(summary = "Delete an existing account")
     public ResponseEntity<Void> deleteAccount(@PathVariable final Long id) {
-        try {
             accountService.deleteAccount(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }
